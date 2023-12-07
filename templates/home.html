@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Galaga Interface</title>
+    <style>
+        body {
+            background-image: url("https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/a80c8979-22d6-49c7-bca4-97613a4a9237/d5vnbd9-3642fc62-e2cf-4cff-85be-c33dec34b83b.png/v1/fill/w_1024,h_683,q_75,strp/galaga_wallpaper_by_camdencc-d5vnbd9.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwic3ViIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsImF1ZCI6WyJ1cm46c2VydmljZTppbWFnZS5vcGVyYXRpb25zIl0sIm9iaiI6W1t7InBhdGgiOiIvZi9hODBjODk3OS0yMmQ2LTQ5YzctYmNhNC05NzYxM2E0YTkyMzcvZDV2bmJkOS0zNjQyZmM2Mi1lMmNmLTRjZmYtODViZS1jMzNkZWMzNGI4M2IucG5nIiwid2lkdGgiOiI8PTEwMjQiLCJoZWlnaHQiOiI8PTY4MyJ9XV19.o0EtDD7MB-O-CwzATC9utwzgwRy77-PwLkGe4G66Qt0");
+        }
+        h1 {
+            color: white;
+            text-align: center;
+        }
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        button {
+            font-size: 15px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            margin: 10px;
+            width: 150px;
+            height: 75px;
+        }
+        select {
+            font-size: 15px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            margin: 10px;
+            width: 150px;
+            height: 75px;
+        }
+        .popup {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            display: none;
+        }
+        .select-container {
+            display: flex;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Galaga Interface</h1>
+    <form action="/start_service" method="post">
+        <div class="button-container">
+            <select name="filename">
+                {% for file in files %}
+                    <option value="{{ file }}">{{ file }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Start Service</button>
+        </div>
+    </form>
+    <div id="popup" class="popup"></div>
+    {% if services_started %}
+    <div class="alert alert-success" role="alert">
+      Services started successfully!
+    </div>
+    {% endif %}
+    <form action="/stop_service" method="post">
+        <div class="select-container">
+            <select name="filename">
+                {% for filename in pids.keys() %}
+                    <option value="{{ filename }}">{{ filename }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Stop Service</button>
+        </div>
+    </form>
+</body>
+</html>
